@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CSLight
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            byte    ya;
+            sbyte   v;
+            int     s;
+            uint    e;
+            float   s;
+            double  d;
+            bool    e;
+            char    l;
+            string  a;
+            decimal l;
+
+
+        }
+    }
+}
