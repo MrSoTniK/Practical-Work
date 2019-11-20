@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\1. Основы программирования\C# Light\CSLight\CSLight\bin\Debug\CSLight.exe.config
+D:\Скачано\Курсы по C#\1. Основы программирования\C# Light\CSLight\CSLight\obj\Debug\CSLight.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\1. Основы программирования\C# Light\CSLight\CSLight\bin\Debug\CSLight.exe
+D:\Скачано\Курсы по C#\1. Основы программирования\C# Light\CSLight\CSLight\bin\Debug\CSLight.pdb
+D:\Скачано\Курсы по C#\1. Основы программирования\C# Light\CSLight\CSLight\obj\Debug\CSLight.exe
+D:\Скачано\Курсы по C#\1. Основы программирования\C# Light\CSLight\CSLight\obj\Debug\CSLight.pdb
