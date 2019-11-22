@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,25 +11,19 @@ namespace CSLight
         public string next;
         public void Solution()
         {
-            int gold;           
-            int shop_crystals = 500;
-            int buyed_crystals;
-            int rest_gold;
-            int rest_crystals;
-            bool crystals_amount;
+            int gold;                                     
+            int crystals;
+            bool crystalsAmount;
 
-            Console.WriteLine("Добро пожаловать в магазин кристаллов. 1 кристалл = 10 единиц золота");
-            Console.WriteLine("Всего в магазине доступно кристаллов в количестве:" + shop_crystals);
-            Console.WriteLine("Сколько у вас единиц золота?");
-            gold = Convert.ToInt32(Console.ReadLine());
-            crystals_amount = gold / 10 < shop_crystals;
-            buyed_crystals = Convert.ToInt32(crystals_amount) * gold / 10 + (shop_crystals * (1 - Convert.ToInt32(crystals_amount)));
-            Console.WriteLine("На " + gold + " золота можно купить " + buyed_crystals+" кристалл(-ов)");
-            rest_gold = gold - buyed_crystals*10;
-            Console.WriteLine("При этом у вас останется золота: " + rest_gold);
-            rest_crystals = shop_crystals - buyed_crystals;
-            Console.WriteLine("А в магазине останется " + rest_crystals);
-            Console.WriteLine("Назад к выбору задания - 0");
+            Console.WriteLine("Добро пожаловать в магазин кристаллов. 1 кристалл = 10 единиц золота.");           
+            Console.WriteLine("Сколько у вас золота?");
+            gold = Convert.ToInt32(Console.ReadLine());              
+            Console.WriteLine("За "+gold+" золота "+"Вы можете купить "+(gold/10)+" кристаллов");
+            Console.WriteLine("Сколько кристаллов вы хотите купить?");
+            crystals = Convert.ToInt32(Console.ReadLine());
+            crystalsAmount = crystals <= gold / 10;
+            Console.WriteLine("У вас " + (crystals * Convert.ToInt32(crystalsAmount)) + " кристаллов и " 
+            + (gold - crystals * 10 * Convert.ToInt32(crystalsAmount)) + " золота");
             next = Console.ReadLine();
         }
     }
