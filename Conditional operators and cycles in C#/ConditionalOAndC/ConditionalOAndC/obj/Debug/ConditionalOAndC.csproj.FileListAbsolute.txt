@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ConditionalOAndC\ConditionalOAndC\bin\Debug\ConditionalOAndC.exe.config
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ConditionalOAndC\ConditionalOAndC\bin\Debug\ConditionalOAndC.exe
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ConditionalOAndC\ConditionalOAndC\bin\Debug\ConditionalOAndC.pdb
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ConditionalOAndC\ConditionalOAndC\obj\Debug\ConditionalOAndC.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ConditionalOAndC\ConditionalOAndC\obj\Debug\ConditionalOAndC.exe
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ConditionalOAndC\ConditionalOAndC\obj\Debug\ConditionalOAndC.pdb
