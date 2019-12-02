@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\3. Массивы\Arrays\Arrays\bin\Debug\Arrays.exe.config
+D:\Скачано\Курсы по C#\3. Массивы\Arrays\Arrays\bin\Debug\Arrays.exe
+D:\Скачано\Курсы по C#\3. Массивы\Arrays\Arrays\bin\Debug\Arrays.pdb
+D:\Скачано\Курсы по C#\3. Массивы\Arrays\Arrays\obj\Debug\Arrays.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\3. Массивы\Arrays\Arrays\obj\Debug\Arrays.exe
+D:\Скачано\Курсы по C#\3. Массивы\Arrays\Arrays\obj\Debug\Arrays.pdb
