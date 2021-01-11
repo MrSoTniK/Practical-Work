@@ -1,6 +1,0 @@
-D:\Скачано\Курсы по C#\2. Условные операторы и циклы\InputReiteration\InputReiteration\bin\Debug\InputReiteration.exe.config
-D:\Скачано\Курсы по C#\2. Условные операторы и циклы\InputReiteration\InputReiteration\bin\Debug\InputReiteration.exe
-D:\Скачано\Курсы по C#\2. Условные операторы и циклы\InputReiteration\InputReiteration\bin\Debug\InputReiteration.pdb
-D:\Скачано\Курсы по C#\2. Условные операторы и циклы\InputReiteration\InputReiteration\obj\Debug\InputReiteration.csprojResolveAssemblyReference.cache
-D:\Скачано\Курсы по C#\2. Условные операторы и циклы\InputReiteration\InputReiteration\obj\Debug\InputReiteration.exe
-D:\Скачано\Курсы по C#\2. Условные операторы и циклы\InputReiteration\InputReiteration\obj\Debug\InputReiteration.pdb
