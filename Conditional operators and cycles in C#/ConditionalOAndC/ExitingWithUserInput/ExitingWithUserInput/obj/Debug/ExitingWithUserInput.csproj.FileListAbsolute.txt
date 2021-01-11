@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ExitingWithUserInput\ExitingWithUserInput\bin\Debug\ExitingWithUserInput.exe.config
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ExitingWithUserInput\ExitingWithUserInput\bin\Debug\ExitingWithUserInput.exe
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ExitingWithUserInput\ExitingWithUserInput\bin\Debug\ExitingWithUserInput.pdb
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ExitingWithUserInput\ExitingWithUserInput\obj\Debug\ExitingWithUserInput.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ExitingWithUserInput\ExitingWithUserInput\obj\Debug\ExitingWithUserInput.exe
+D:\Скачано\Курсы по C#\2. Условные операторы и циклы\ExitingWithUserInput\ExitingWithUserInput\obj\Debug\ExitingWithUserInput.pdb
