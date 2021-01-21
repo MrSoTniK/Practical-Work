@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\5. Коллекции\Dictionary\Dictionary\Dictionary\bin\Debug\Dictionary.exe.config
+D:\Скачано\Курсы по C#\5. Коллекции\Dictionary\Dictionary\Dictionary\bin\Debug\Dictionary.exe
+D:\Скачано\Курсы по C#\5. Коллекции\Dictionary\Dictionary\Dictionary\bin\Debug\Dictionary.pdb
+D:\Скачано\Курсы по C#\5. Коллекции\Dictionary\Dictionary\Dictionary\obj\Debug\Dictionary.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\5. Коллекции\Dictionary\Dictionary\Dictionary\obj\Debug\Dictionary.exe
+D:\Скачано\Курсы по C#\5. Коллекции\Dictionary\Dictionary\Dictionary\obj\Debug\Dictionary.pdb
