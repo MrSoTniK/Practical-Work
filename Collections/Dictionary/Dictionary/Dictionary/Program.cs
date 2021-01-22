@@ -15,29 +15,19 @@ namespace Dictionary
             dictionary.Add("программист", "специалист, занимающийся программированием, то есть созданием компьютерных программ.");
             dictionary.Add("3д-художник", "создаёт трехмерные объекты и текстуры для компьютерных и мобильных игр.");
             dictionary.Add("лвл-дизайнер","создает игровые уровни, местность локации в формате 3д-моделей.");
-            string userInput = "";
-            bool isExist = false;
+            string userInput = "";           
 
             while (true) 
-            {
-                isExist = false;
+            {               
                 Console.WriteLine("Введите слово");
                 userInput = Console.ReadLine().ToLower();
 
-
-                foreach (KeyValuePair<string, string> keyValue in dictionary)
+                if(dictionary.ContainsKey(userInput) == true)
                 {
-                    if (keyValue.Key == userInput)
-                    {
-                        Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
-                        isExist = true;
-                    }
-                    
+                    Console.WriteLine(userInput + " - " + dictionary[userInput]);
                 }
-                if (isExist == false)
-                {
-                    Console.WriteLine("такого слова нет в словаре, попробуйте снова");
-                }
+                else Console.WriteLine("такого слова нет в словаре, попробуйте снова");
+            
             }
         }
     }
