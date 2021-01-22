@@ -15,9 +15,10 @@ namespace Dictionary
             dictionary.Add("программист", "специалист, занимающийся программированием, то есть созданием компьютерных программ.");
             dictionary.Add("3д-художник", "создаёт трехмерные объекты и текстуры для компьютерных и мобильных игр.");
             dictionary.Add("лвл-дизайнер","создает игровые уровни, местность локации в формате 3д-моделей.");
-            string userInput = "";           
+            string userInput = "";
+            bool isExit = false;
 
-            while (true) 
+            while (isExit != true) 
             {               
                 Console.WriteLine("Введите слово");
                 userInput = Console.ReadLine().ToLower();
@@ -26,9 +27,21 @@ namespace Dictionary
                 {
                     Console.WriteLine(userInput + " - " + dictionary[userInput]);
                 }
-                else Console.WriteLine("такого слова нет в словаре, попробуйте снова");
-            
+                else
+                { 
+                    Console.WriteLine("такого слова нет в словаре, попробуйте снова");
+                }
+
+                Console.WriteLine("Выйти из программы? 1 - да, люб. др. значение - нет");
+                userInput = Console.ReadLine();
+                if (userInput == "1") 
+                {
+                    isExit = true;
+                }              
             }
+
+            Environment.Exit(0);
+
         }
     }
 }
