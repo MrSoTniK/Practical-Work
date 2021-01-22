@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\5. Коллекции\ShopQueue\ShopQueue\ShopQueue\bin\Debug\ShopQueue.exe.config
+D:\Скачано\Курсы по C#\5. Коллекции\ShopQueue\ShopQueue\ShopQueue\bin\Debug\ShopQueue.exe
+D:\Скачано\Курсы по C#\5. Коллекции\ShopQueue\ShopQueue\ShopQueue\bin\Debug\ShopQueue.pdb
+D:\Скачано\Курсы по C#\5. Коллекции\ShopQueue\ShopQueue\ShopQueue\obj\Debug\ShopQueue.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\5. Коллекции\ShopQueue\ShopQueue\ShopQueue\obj\Debug\ShopQueue.exe
+D:\Скачано\Курсы по C#\5. Коллекции\ShopQueue\ShopQueue\ShopQueue\obj\Debug\ShopQueue.pdb
