@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\5. Коллекции\DynamicArray\DynamicArray\bin\Debug\DynamicArray.exe.config
+D:\Скачано\Курсы по C#\5. Коллекции\DynamicArray\DynamicArray\bin\Debug\DynamicArray.exe
+D:\Скачано\Курсы по C#\5. Коллекции\DynamicArray\DynamicArray\bin\Debug\DynamicArray.pdb
+D:\Скачано\Курсы по C#\5. Коллекции\DynamicArray\DynamicArray\obj\Debug\DynamicArray.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\5. Коллекции\DynamicArray\DynamicArray\obj\Debug\DynamicArray.exe
+D:\Скачано\Курсы по C#\5. Коллекции\DynamicArray\DynamicArray\obj\Debug\DynamicArray.pdb
