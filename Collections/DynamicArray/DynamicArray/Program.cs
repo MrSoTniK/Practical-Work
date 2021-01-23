@@ -13,11 +13,10 @@ namespace DynamicArray
             List<int> numbers = new List<int>();
             string userInput;
             int userNumber, sum = 0;
-            bool isExit = false, isNumber;
+            bool isExit = false;
             while (isExit == false) 
             {
-                userInput = Console.ReadLine();
-                isNumber = Int32.TryParse(userInput, out userNumber);
+                userInput = Console.ReadLine();               
                 if (Int32.TryParse(userInput, out userNumber) == true) 
                 {
                     sum += userNumber;
