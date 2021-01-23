@@ -1,0 +1,6 @@
+D:\Скачано\Курсы по C#\5. Коллекции\DossierDB\DossierDB\bin\Debug\DossierDB.exe.config
+D:\Скачано\Курсы по C#\5. Коллекции\DossierDB\DossierDB\bin\Debug\DossierDB.exe
+D:\Скачано\Курсы по C#\5. Коллекции\DossierDB\DossierDB\bin\Debug\DossierDB.pdb
+D:\Скачано\Курсы по C#\5. Коллекции\DossierDB\DossierDB\obj\Debug\DossierDB.csprojResolveAssemblyReference.cache
+D:\Скачано\Курсы по C#\5. Коллекции\DossierDB\DossierDB\obj\Debug\DossierDB.exe
+D:\Скачано\Курсы по C#\5. Коллекции\DossierDB\DossierDB\obj\Debug\DossierDB.pdb
