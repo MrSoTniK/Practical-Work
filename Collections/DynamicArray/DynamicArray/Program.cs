@@ -12,18 +12,18 @@ namespace DynamicArray
         {
             List<int> numbers = new List<int>();
             string userInput;
-            int userNumber, sum = 0;
+            int userNumber;
             bool isExit = false;
             while (isExit == false) 
             {
                 userInput = Console.ReadLine();               
                 if (Int32.TryParse(userInput, out userNumber) == true) 
                 {
-                    sum += userNumber;
+                    numbers.Add(userNumber);
                 }
                 else if(userInput == "sum")
                 {
-                    Console.WriteLine("Сумма: "+sum.ToString());
+                    Console.WriteLine("Сумма: " + numbers.Sum().ToString());
                 }
                 else if (userInput == "exit") 
                 {
