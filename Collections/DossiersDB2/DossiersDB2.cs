@@ -8,13 +8,18 @@ namespace DossierDB
 {
     class Program
     {
-        static void DossierAdd(Dictionary<string,string> dictionary) 
-        {
-            Console.WriteLine("Введите ФИО, а затем должность");
-            dictionary.Add(Console.ReadLine(), Console.ReadLine());          
+        static void AddDossier(Dictionary<string,string> dictionary) 
+        {            
+            string nameData, position;
+
+            Console.WriteLine("Введите ФИО");
+            nameData = Console.ReadLine();
+            Console.WriteLine("Введите должность");
+            position = Console.ReadLine();
+            dictionary.Add(nameData, position);          
         }
 
-        static void DossierShow(Dictionary<string, string> dictionary) 
+        static void ShowDossier(Dictionary<string, string> dictionary) 
         {
             foreach (KeyValuePair<string, string> keyValue in dictionary)
             {
@@ -22,7 +27,7 @@ namespace DossierDB
             }
         }
 
-        static void DossierDelete(string inputValue, Dictionary<string, string> dictionary) 
+        static void DeleteDossier(string inputValue, Dictionary<string, string> dictionary) 
         {
             Console.WriteLine("Введите ФИО записи, которую хотите удалить.");
             inputValue = Console.ReadLine();
@@ -33,14 +38,13 @@ namespace DossierDB
             }          
         }
 
-        static void DossierShow(string inputValue, Dictionary<string, string> dictionary) 
+        static void SearchDossier(string inputValue, Dictionary<string, string> dictionary) 
         {
             Console.WriteLine("Введите ФИО записи, которую хотите найти.");
             inputValue = Console.ReadLine();
             if (dictionary.ContainsKey(inputValue) == true)
             {
-                Console.WriteLine(inputValue + " - " + dictionary[inputValue]);                                   
-                
+                Console.WriteLine(inputValue + " - " + dictionary[inputValue]);                                                  
             }
             else
             {
@@ -66,16 +70,16 @@ namespace DossierDB
                 switch (userInput) 
                 { 
                     case "1":
-                        DossierAdd(dossiers);
+                        AddDossier(dossiers);
                         break;
                     case "2":
-                        DossierShow(dossiers);
+                        ShowDossier(dossiers);
                         break;
                     case "3":
-                        DossierDelete(userInput, dossiers);
+                        DeleteDossier(userInput, dossiers);
                         break;
                     case "4":
-                        DossierShow(userInput, dossiers);
+                        SearchDossier(userInput, dossiers);
                         break;
                     case "5":
                         isExit = true;
