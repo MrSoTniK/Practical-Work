@@ -10,13 +10,13 @@ namespace DossierDB
     {
         static void AddDossier(Dictionary<string,string> dictionary) 
         {            
-            string nameData, position;
+            string workerName, position;
 
             Console.WriteLine("Введите ФИО");
-            nameData = Console.ReadLine();
+            workerName = Console.ReadLine();
             Console.WriteLine("Введите должность");
             position = Console.ReadLine();
-            dictionary.Add(nameData, position);          
+            dictionary.Add(workerName, position);          
         }
 
         static void ShowDossier(Dictionary<string, string> dictionary) 
@@ -27,10 +27,10 @@ namespace DossierDB
             }
         }
 
-        static void DeleteDossier(string inputValue, Dictionary<string, string> dictionary) 
-        {
+        static void DeleteDossier(Dictionary<string, string> dictionary) 
+        {           
             Console.WriteLine("Введите ФИО записи, которую хотите удалить.");
-            inputValue = Console.ReadLine();
+            string inputValue = Console.ReadLine();
             bool isExist = dictionary.Remove(inputValue);
             if (isExist == false)
             {
@@ -38,10 +38,10 @@ namespace DossierDB
             }          
         }
 
-        static void SearchDossier(string inputValue, Dictionary<string, string> dictionary) 
+        static void SearchDossier(Dictionary<string, string> dictionary) 
         {
             Console.WriteLine("Введите ФИО записи, которую хотите найти.");
-            inputValue = Console.ReadLine();
+            string inputValue = Console.ReadLine();
             if (dictionary.ContainsKey(inputValue) == true)
             {
                 Console.WriteLine(inputValue + " - " + dictionary[inputValue]);                                                  
@@ -58,7 +58,6 @@ namespace DossierDB
             bool isExit = false;
             string userInput;
             
-
             while (isExit == false) 
             {
                 Console.WriteLine("1 - добавить досье");
@@ -76,10 +75,10 @@ namespace DossierDB
                         ShowDossier(dossiers);
                         break;
                     case "3":
-                        DeleteDossier(userInput, dossiers);
+                        DeleteDossier(dossiers);
                         break;
                     case "4":
-                        SearchDossier(userInput, dossiers);
+                        SearchDossier(dossiers);
                         break;
                     case "5":
                         isExit = true;
@@ -96,3 +95,4 @@ namespace DossierDB
         }
     }
 }
+
