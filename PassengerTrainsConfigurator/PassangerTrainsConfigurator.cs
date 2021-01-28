@@ -139,7 +139,7 @@ namespace PassengerTrainsConfigurator
             Console.ReadKey();
             train.SellTickets();
 
-            Console.WriteLine("Прикрепление ваногов к поезду:");
+            Console.WriteLine("Прикрепление вагонов к поезду:");
             train.AssignCarriages(carriages);
 
             Console.WriteLine("Отправить поезд? 1 -да, люб. др. значение - нет");
@@ -211,7 +211,7 @@ namespace PassengerTrainsConfigurator
                 Console.SetCursorPosition(0,10);
                 ShowCarriages(carriages);
                 Console.SetCursorPosition(0, 20);
-                Console.WriteLine("1 - Создаить новый поезд");
+                Console.WriteLine("1 - Создать новый поезд");
                 Console.WriteLine("2 - Изменить вместительность вагонов");
                 Console.WriteLine("3 - выход из программы");
 
