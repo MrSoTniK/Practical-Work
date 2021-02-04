@@ -11,7 +11,12 @@ namespace PassengerTrainsConfigurator
     {
         private string _direction;
         private int _passengersQuantity;        
-        private List<Carriages> _carriages = new List<Carriages>();
+        private List<Carriage> _carriages;
+
+        public Train() 
+        {
+            _carriages = new List<Carriage>(); 
+        }
             
         public void CreateDirection() 
         {
@@ -26,18 +31,19 @@ namespace PassengerTrainsConfigurator
             Console.WriteLine("Количество пассажиров на поезд: " + _passengersQuantity.ToString());
         }
 
-        public void AssignCarriages(List<Carriages> carriages) 
+        public void AssignCarriages(List<Carriage> carriages) 
         {
             for (int i = 0; i < carriages.Count; i++) 
-            {
-                Carriages carriage;
-                carriage = carriages[i];
+            {                
+                Carriage carriage = carriages[i];
                 _carriages.Add(carriage);
             }
                 
-            int restPassengers = _passengersQuantity, carriagesQuantity = 0, passengesInCarriages;
+            int restPassengers = _passengersQuantity, 
+                carriagesQuantity = 0, 
+                passengesInCarriages;
 
-            foreach (Carriages carriage in _carriages) 
+            foreach (Carriage carriage in _carriages) 
             {
                 carriagesQuantity = 0;
 
@@ -69,7 +75,7 @@ namespace PassengerTrainsConfigurator
         public void ShowTrain() 
         {
             Console.Write("Направление: " + _direction.ToString() + "; пассажиров: " + _passengersQuantity.ToString() + "; вагоны:");
-            foreach (Carriages carriage in _carriages) 
+            foreach (Carriage carriage in _carriages) 
             {
                 if (carriage.Quantity != 0)
                 {
@@ -79,13 +85,13 @@ namespace PassengerTrainsConfigurator
         }
     }
 
-    class Carriages
+    class Carriage
     {
         public string Name;
         public int Quantity;
         public int Spaciousness{ get; private set;}
 
-        public Carriages(string name, int spaciousness, int quantity = 0) 
+        public Carriage(string name, int spaciousness, int quantity = 0) 
         {
             Name = name;
             Quantity = quantity;
@@ -114,8 +120,27 @@ namespace PassengerTrainsConfigurator
         {           
             Console.WriteLine("имя: " + Name + " Вместительность: " + Spaciousness);
         }
+
+        public void ChangeSpaciounessFromValue(int value) 
+        {          
+            Spaciousness = value;
+        }
     }
 
+    class BigCarriage : Carriage 
+    {
+        public BigCarriage() : base("Большой", 40, 0) { }
+    }
+
+    class AverageCarriage : Carriage
+    {
+        public AverageCarriage() : base("Средний", 20, 0) { }
+    }
+
+    class SmallCarriage : Carriage
+    {
+        public SmallCarriage() : base("Малый", 10, 0) { }
+    }
 
     class Program
     {
@@ -127,7 +152,7 @@ namespace PassengerTrainsConfigurator
             }
         }
 
-        static void CreateNewTrain(List<Train> trains, List<Carriages> carriages) 
+        static void CreateNewTrain(List<Train> trains, List<Carriage> carriages) 
         {
             string userInput;
             Train train = new Train();
@@ -147,14 +172,10 @@ namespace PassengerTrainsConfigurator
             if (userInput == "1")
             {
                 train.SendTrain(trains, train);
-            }
-            else 
-            {
-                train = null;
-            }
+            }           
         }
 
-        static void ChangeCarriages(List<Carriages> carriages) 
+        static void ChangeCarriages(List<Carriage> carriages) 
         {            
             for(int i = 0; i< carriages.Count;i++)
             {
@@ -163,32 +184,58 @@ namespace PassengerTrainsConfigurator
             }          
         }
 
-        static void SortCarriagesArray(List<Carriages> carriages) 
+        static void SortCarriagesArray(List<Carriage> carriages) 
         {
-            int maxValue = Int32.MinValue;
-            int maxValueIndex = 0;
-            List<Carriages> sortingCollection = new List<Carriages>();
+       
+            int spaciouness, quantity;
+            string name;
 
-            while(carriages.Count != 0)
+            for (int i = 0; i < carriages.Count - 1; i++)
             {
-                for (int i = 0; i < carriages.Count; i++)
+                for (int j = i + 1; i < carriages.Count; j++)
                 {
-                    if (carriages[i].Spaciousness > maxValue)
+                    if (carriages[i].Spaciousness < carriages[j].Spaciousness)
                     {
-                        maxValue = carriages[i].Spaciousness;
-                        maxValueIndex = i;
+                        spaciouness = carriages[i].Spaciousness;
+                        name = carriages[i].Name;
+                        quantity = carriages[i].Quantity;
+
+                        carriages[i].ChangeSpaciounessFromValue(carriages[j].Spaciousness);
+                        carriages[i].Name = carriages[j].Name;
+                        carriages[i].Quantity = carriages[j].Quantity;
+
+                        carriages[j].ChangeSpaciounessFromValue(spaciouness);
+                        carriages[j].Name = name;
+                        carriages[j].Quantity = quantity;
                     }
                 }
-                sortingCollection.Add(carriages[maxValueIndex]);
-                carriages.Remove(carriages[maxValueIndex]);
             }
-            carriages = sortingCollection;
+           //   Предыдущий метод сортировки:
+
+           //   int maxValue = Int32.MinValue;
+           //   int maxValueIndex = 0;
+           //   List<Carriage> sortingCollection = new List<Carriage>();
+
+           //   while(carriages.Count != 0)
+           //   {
+           //        for (int i = 0; i < carriages.Count; i++)
+           //       {
+           //            if (carriages[i].Spaciousness > maxValue)
+           //           {
+           //               maxValue = carriages[i].Spaciousness;
+           //               maxValueIndex = i;
+           //           }
+           //       }
+           //       sortingCollection.Add(carriages[maxValueIndex]);
+           //       carriages.Remove(carriages[maxValueIndex]);
+           //    }
+           //    carriages = sortingCollection;
         }
 
-        static void ShowCarriages(List<Carriages> carriages) 
+        static void ShowCarriages(List<Carriage> carriages) 
         {
             Console.WriteLine("типы вагонов:");
-            foreach (Carriages carriage in carriages)
+            foreach (Carriage carriage in carriages)
             {
                 carriage.ShowCarriage();
             }
@@ -196,11 +243,11 @@ namespace PassengerTrainsConfigurator
 
         static void Main(string[] args)
         {
-            Carriages bigCarriage = new Carriages("Большой", 40);
-            Carriages averageCarriage = new Carriages("Средний", 20);
-            Carriages smallCarriage = new Carriages("Малый", 10);   
+            Carriage bigCarriage = new BigCarriage();
+            Carriage averageCarriage = new AverageCarriage();
+            Carriage smallCarriage = new SmallCarriage();
             List<Train> trains = new List<Train>();
-            List<Carriages> carriages = new List<Carriages>(3) { bigCarriage, averageCarriage, smallCarriage };     
+            List<Carriage> carriages = new List<Carriage>(3) { bigCarriage, averageCarriage, smallCarriage };     
             
             bool isExit = false;
             string userInput;
@@ -223,7 +270,7 @@ namespace PassengerTrainsConfigurator
                         break;
                     case "2":
                         ChangeCarriages(carriages);
-                        SortCarriagesArray(carriages);
+                        SortCarriagesArray(carriages);                        
                         break;
                     case "3":
                         isExit = true;
@@ -239,3 +286,4 @@ namespace PassengerTrainsConfigurator
         }
     }
 }
+
