@@ -12,8 +12,7 @@ namespace PassengerTrainsConfigurator_2
         {
             bool isExit = false;
             string userInput;
-            Station station = new Station();
-            station.AddStationCarriages();
+            Station station = new Station();           
 
             while (isExit == false)
             {
@@ -44,7 +43,7 @@ namespace PassengerTrainsConfigurator_2
             Environment.Exit(0);
         }
     }
-
+   
     class Station 
     {       
         private int _passengersQuantity;
@@ -58,7 +57,7 @@ namespace PassengerTrainsConfigurator_2
             AddStationCarriages();
         }
 
-        public void AddStationCarriages() 
+        private void AddStationCarriages() 
         {
             _stationCarriages.Add(new Carriage("большой", 80));
             _stationCarriages.Add(new Carriage("средний", 40));
@@ -71,7 +70,7 @@ namespace PassengerTrainsConfigurator_2
             string direction = Console.ReadLine();
 
             Random randomNumber = new Random();
-            _passengersQuantity = randomNumber.Next(500, 2501);
+            _passengersQuantity = randomNumber.Next(1, 2501);
             Console.WriteLine("Количество пассажиров: " + _passengersQuantity.ToString());
 
             Train train = new Train(direction, _passengersQuantity);
@@ -108,43 +107,48 @@ namespace PassengerTrainsConfigurator_2
     class Train 
     {
         private string _direction;
-        private List<Carriage> _carriages;
+        private Dictionary<Carriage, int> _carriages;
         private int _passengersQuantity;
 
         public Train(string direction, int passengersQuantity) 
         {
             _direction = direction;
-            _carriages = new List<Carriage>();
+            _carriages = new Dictionary<Carriage, int>();
             _passengersQuantity = passengersQuantity;
         }
 
         public void AssignCarriages(List<Carriage> stationCarriages) 
         {
-            int restPassengers = _passengersQuantity,
-                carriagesQuantity = 0,
-                passengesInCarriages;
+            int restPassengers = 0,
+                currentPassengersQuantity = _passengersQuantity,
+                carriagesQuantity = 0;
 
             foreach (Carriage carriage in stationCarriages)
             {
-                carriagesQuantity = 0;
+                carriagesQuantity = carriage.CalculateQuantity(currentPassengersQuantity, carriage.Spaciousness, out restPassengers);
+                currentPassengersQuantity = restPassengers;
 
-                if (restPassengers > 0)
+                if (carriagesQuantity != 0) 
                 {
-                    if (restPassengers > carriage.Spaciousness)
-                    {
-                        carriagesQuantity = restPassengers / carriage.Spaciousness;
-                        passengesInCarriages = carriagesQuantity * carriage.Spaciousness;
-                        restPassengers -= passengesInCarriages;
-                    }
-                    else
-                    {
-                        carriagesQuantity = 1;
-                        restPassengers = 0;
-                    }
+                    _carriages.Add(carriage, carriagesQuantity);
+                }                
+            }
 
-                    carriage.SetCarriagesNumber(carriagesQuantity);
-                    _carriages.Add(carriage);
-                }               
+            if (restPassengers != 0) 
+            {                
+                int lastIndex = _carriages.Count - 1;
+                int minSpaciousnessIndex = stationCarriages.Count - 1;                
+                Carriage carriage = stationCarriages[minSpaciousnessIndex];
+
+                bool isContain = _carriages.Keys.Contains<Carriage>(stationCarriages[minSpaciousnessIndex]);
+                if (isContain == true) 
+                {
+                    _carriages[carriage] += 1;
+                }
+                else 
+                {
+                    _carriages.Add(carriage, 1);
+                }
             }
         }
 
@@ -153,9 +157,11 @@ namespace PassengerTrainsConfigurator_2
             Console.WriteLine("направление: " + _direction);
             Console.WriteLine("пассажиров: " + _passengersQuantity.ToString());
 
-            foreach (Carriage carriage in _carriages) 
+            foreach (KeyValuePair<Carriage, int> carriage in _carriages) 
             {
-                carriage.ShowCarriage();
+                carriage.Key.ShowCarriage();
+                Console.WriteLine("количество: " + carriage.Value.ToString());
+                Console.WriteLine();
             }
         }
     }
@@ -164,26 +170,56 @@ namespace PassengerTrainsConfigurator_2
     {
         private string _name;
         public int Spaciousness { get; private set; }
-
-        private int _quantity; 
-
+       
         public Carriage(string name, int spaciousness, int quantity = 0) 
         {
             _name = name;
             Spaciousness = spaciousness;
         }
 
-        public void SetCarriagesNumber(int number) 
+        public int CalculateQuantity(int currentPassengersQuantity, int spaciousness, out int restPassengers) 
         {
-            _quantity = number;
-        }
+            restPassengers = currentPassengersQuantity;
+            int  carriagesQuantity = 0,
+                passengesInCarriages;
 
+            if (restPassengers > 0)
+            {
+                if (restPassengers > spaciousness)
+                {
+                    carriagesQuantity = restPassengers / spaciousness;
+                    passengesInCarriages = carriagesQuantity * spaciousness;
+                    restPassengers -= passengesInCarriages;
+                }
+                else 
+                {
+                    if (restPassengers == spaciousness)
+                    {
+                        carriagesQuantity = 1;
+                        restPassengers = 0;
+                    }
+                    if (restPassengers < spaciousness)
+                    {
+                        if (spaciousness / restPassengers < 2)
+                        {
+                            carriagesQuantity = 1;
+                            restPassengers = 0;
+                        }
+                        else
+                        {
+                            carriagesQuantity = 0;
+                        }
+                    }
+                }                                
+            }
+
+            return carriagesQuantity;
+        }
+      
         public void ShowCarriage() 
         {
             Console.WriteLine("тип: " + _name);
-            Console.WriteLine("вместительность: " + Spaciousness.ToString());
-            Console.WriteLine("количество: " + _quantity.ToString());
-            Console.WriteLine();
+            Console.WriteLine("вместительность: " + Spaciousness.ToString());                     
         }
     }
 }
