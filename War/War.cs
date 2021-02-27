@@ -78,9 +78,9 @@ namespace War
   
     class Platoon 
     {
-        public string Country { get; private set; }
-        private List<Soldier> _soldiers;
+        public string Country { get; private set; }       
         public bool IsDefeated { get; private set; }
+        private List<Soldier> _soldiers;
         private Random _randomNumber;
 
         public Platoon() 
