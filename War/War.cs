@@ -19,99 +19,89 @@ namespace War
 
     class Battlefield
     {
-        private Platoon _platoon1;
-        private Platoon _platoon2;
+        private Platoon _troop1;
+        private Platoon _troop2;
 
         public Battlefield() 
         {
-            _platoon1 = new Platoon();
-            _platoon2 = new Platoon();
+            _troop1 = new Platoon();
+            _troop2 = new Platoon();
         }      
 
         public void SimulateBattle() 
-        {           
-            bool platoon1IsDeafeated = false, platoon2IsDeafeated = false;
+        {                      
             int step = 0;
-            double platoon1Damage, platoon2Damage;
+            double DamageOfPlatoon1, DamageOfPlatoon2;
 
-            while (platoon1IsDeafeated != true && platoon2IsDeafeated != true) 
+            while (_troop1.IsDefeated != true && _troop2.IsDefeated != true) 
             {
                 Console.Clear();
                 Console.WriteLine("Ход :" + step.ToString());
                 Console.WriteLine("---------------------------------------------");
 
-                platoon1Damage = _platoon1.ParticipateInBattle();
+                DamageOfPlatoon1 = _troop1.GetDamage();
                 Console.WriteLine("---------------------------------------------");
-                platoon2Damage = _platoon2.ParticipateInBattle();
+                DamageOfPlatoon2 = _troop2.GetDamage();
                 Console.WriteLine("---------------------------------------------");
                 Console.WriteLine();
 
                 Console.WriteLine("[][][][][][][][][][][][][][][][][][][][][][][]");
-                _platoon1.TakeDamage(platoon2Damage);
-                _platoon2.TakeDamage(platoon1Damage);
+                _troop1.TakeDamage(DamageOfPlatoon2);
+                _troop2.TakeDamage(DamageOfPlatoon1);
 
-                _platoon1.CheckLoss();
-                _platoon2.CheckLoss();
-
-                platoon1IsDeafeated = _platoon1.IsDefeated;
-                platoon2IsDeafeated = _platoon2.IsDefeated;
-
+                _troop1.CheckLoss();
+                _troop2.CheckLoss();
+             
                 step++;
 
                 Console.WriteLine("Введите любую клавишу для продолжения...");
                 Console.ReadKey();
             }
 
-            if (platoon1IsDeafeated == true) 
+            if (_troop1.IsDefeated == true && _troop2.IsDefeated == true) 
             {
-                Console.WriteLine("Победила страна " + _platoon2.Country);
+                Console.WriteLine("Ничья");
             }
-            if (platoon2IsDeafeated == true)
+            else 
             {
-                Console.WriteLine("Победила страна " + _platoon1.Country);
-            }
+                if (_troop1.IsDefeated == true)
+                {
+                    Console.WriteLine("Победила страна " + _troop2.Country);
+                }
+                if (_troop2.IsDefeated == true)
+                {
+                    Console.WriteLine("Победила страна " + _troop1.Country);
+                }
+            }          
         }           
     }
   
     class Platoon 
     {
         public string Country { get; private set; }
-        private List<Soldier> _platoon;
+        private List<Soldier> _soldiers;
         public bool IsDefeated { get; private set; }
+        private Random _randomNumber;
 
         public Platoon() 
         {
-            _platoon = new List<Soldier>();
-            Random randomNumber = new Random();
-            int soldiersQuantity = randomNumber.Next(10, 31);
+            _soldiers = new List<Soldier>();
+            _randomNumber = new Random();
+            int soldiersQuantity = _randomNumber.Next(10, 31);
             double health, damage, armor;
 
             for (int i = 1; i <= soldiersQuantity; i++) 
             {
-                health = randomNumber.Next(25, 101);
-                damage = randomNumber.Next(100, 201);
-                armor = randomNumber.Next(25, 51);
-                _platoon.Add(new Soldier(health, damage, armor));
+                health = _randomNumber.Next(25, 101);
+                damage = _randomNumber.Next(100, 201);
+                armor = _randomNumber.Next(25, 51);
+                _soldiers.Add(new Soldier(health, damage, armor));
             }
             IsDefeated = false;
             Console.WriteLine("Введите название страны");
             Country = Console.ReadLine();
         }
-
-        public double ParticipateInBattle() 
-        {
-            int index;
-            double outputDamage;
-
-            Show();
-            Console.WriteLine("---------------------------------------------");
-            index = PickSoldierDamage();
-            outputDamage = _platoon[index].Damage;
-            Console.WriteLine("Солдат " + index.ToString()  + " наносит " + outputDamage.ToString()+ " урона");
-
-            return outputDamage;
-        }
-
+      
         public void CheckLoss() 
         {
             CheckState();
@@ -120,13 +110,13 @@ namespace War
 
         public void TakeDamage(double pickedDamage)
         {
-            int soldiersQuantity = _platoon.Count;
+            int soldiersQuantity = _soldiers.Count;
             int numberPicked;
             double reducedDamage;
             Random randomNumber = new Random();
 
             numberPicked = randomNumber.Next(0, soldiersQuantity);
-            reducedDamage =  _platoon[numberPicked].TakeDamage(pickedDamage);
+            reducedDamage =  _soldiers[numberPicked].TakeDamage(pickedDamage);
             int index = numberPicked;
             Console.Write("Солдат " + index.ToString() + " из страны " + Country + " получает " + reducedDamage.ToString() + " урона, ");
 
@@ -138,7 +128,7 @@ namespace War
         {
             bool isAlive = false;                      
 
-            foreach (Soldier soldier in _platoon) 
+            foreach (Soldier soldier in _soldiers) 
             {
                 soldier.CheckState();
                 if (soldier.IsAlive == true) 
@@ -158,7 +148,7 @@ namespace War
             int index = 0, indexForRemove = 0;
             bool isDeadExist = false;
 
-            foreach (Soldier soldier in _platoon)
+            foreach (Soldier soldier in _soldiers)
             {
                 soldier.CheckState();
                 if (soldier.IsAlive == false)
@@ -171,8 +161,38 @@ namespace War
             
             if (isDeadExist == true)
             {
-                _platoon.RemoveAt(indexForRemove);
+                _soldiers.RemoveAt(indexForRemove);
             }                      
+        }
+
+        public double GetDamage()
+        {
+            int index;
+            double outputDamage;
+
+            Show();
+            Console.WriteLine("---------------------------------------------");
+            index = PickSoldierDamage();
+            outputDamage = _soldiers[index].Damage;
+            Console.WriteLine("Солдат " + index.ToString() + " наносит " + outputDamage.ToString() + " урона");
+
+            return outputDamage;
+        }
+
+        private void Show()
+        {
+            int soldierIndex = 0;
+
+            Console.WriteLine(Country + ":");
+            foreach (Soldier soldier in _soldiers)
+            {
+                Console.Write("[" + soldierIndex.ToString() + "]");
+                Console.Write(" HP:" + soldier.Health.ToString());
+                Console.Write(" D:" + soldier.Damage.ToString());
+                Console.Write(" A:" + soldier.Armor.ToString());
+                Console.WriteLine(" S:" + soldier.IsAlive.ToString());
+                soldierIndex++;
+            }
         }
 
         private int PickSoldierDamage() 
@@ -180,28 +200,11 @@ namespace War
             int numberPicked;                      
 
             Random randomNumber = new Random();
-            numberPicked = randomNumber.Next(0, _platoon.Count);           
+            numberPicked = randomNumber.Next(0, _soldiers.Count);           
             int index = numberPicked;          
 
             return index;
-        }
-      
-
-        private void Show()
-        {
-            int soldierIndex = 0;
-
-            Console.WriteLine(Country + ":");
-            foreach (Soldier soldier in _platoon)
-            {
-                Console.Write("["+soldierIndex.ToString()+"]");
-                Console.Write(" HP:" + soldier.Health.ToString());
-                Console.Write(" D:" + soldier.Damage.ToString());
-                Console.Write(" A:" + soldier.Armor.ToString());
-                Console.WriteLine(" S:" + soldier.IsAlive.ToString());
-                soldierIndex++;
-            }
-        }       
+        }         
     }
 
     class Soldier 
@@ -217,16 +220,7 @@ namespace War
             Damage = damage;
             Armor = armor;
             IsAlive = isAlive;
-        }
-
-        public double TakeDamage(double damage) 
-        {
-            double damageReduced = damage/ Armor * 10;
-            damageReduced = Math.Round(damageReduced);
-            Health -= damageReduced;
-
-            return damageReduced;
-        }
+        }        
 
         public void CheckState()
         {
@@ -235,6 +229,15 @@ namespace War
                 Health = 0;
                 IsAlive = false;
             }
+        }
+
+        public double TakeDamage(double damage)
+        {
+            double damageReduced = damage / Armor * 10;
+            damageReduced = Math.Round(damageReduced);
+            Health -= damageReduced;
+
+            return damageReduced;
         }
     }   
 }
