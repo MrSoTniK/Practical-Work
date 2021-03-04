@@ -77,8 +77,7 @@ namespace War
     }
   
     class Platoon 
-    {
-        
+    {  
         private Random _randomNumber;
         public string Country { get; private set; }
         public List<Soldier> Soldiers { get; private set; }  
