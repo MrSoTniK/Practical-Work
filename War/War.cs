@@ -33,7 +33,7 @@ namespace War
             int step = 0;
             double DamageOfPlatoon1, DamageOfPlatoon2;
 
-            while (_troop1.IsDefeated != true && _troop2.IsDefeated != true) 
+            while (_troop1.Soldiers.Count != 0 && _troop2.Soldiers.Count != 0) 
             {
                 Console.Clear();
                 Console.WriteLine("Ход :" + step.ToString());
@@ -49,8 +49,8 @@ namespace War
                 _troop1.TakeDamage(DamageOfPlatoon2);
                 _troop2.TakeDamage(DamageOfPlatoon1);
 
-                _troop1.CheckLoss();
-                _troop2.CheckLoss();
+                _troop1.RemoveDead();
+                _troop2.RemoveDead();
              
                 step++;
 
@@ -58,17 +58,17 @@ namespace War
                 Console.ReadKey();
             }
 
-            if (_troop1.IsDefeated == true && _troop2.IsDefeated == true) 
+            if (_troop1.Soldiers.Count == 0 && _troop2.Soldiers.Count == 0) 
             {
                 Console.WriteLine("Ничья");
             }
             else 
             {
-                if (_troop1.IsDefeated == true)
+                if (_troop1.Soldiers.Count == 0)
                 {
                     Console.WriteLine("Победила страна " + _troop2.Country);
                 }
-                if (_troop2.IsDefeated == true)
+                if (_troop2.Soldiers.Count == 0)
                 {
                     Console.WriteLine("Победила страна " + _troop1.Country);
                 }
@@ -78,14 +78,14 @@ namespace War
   
     class Platoon 
     {
-        public string Country { get; private set; }       
-        public bool IsDefeated { get; private set; }
-        private List<Soldier> _soldiers;
+        
         private Random _randomNumber;
+        public string Country { get; private set; }
+        public List<Soldier> Soldiers { get; private set; }  
 
         public Platoon() 
         {
-            _soldiers = new List<Soldier>();
+            Soldiers = new List<Soldier>();
             _randomNumber = new Random();
             int soldiersQuantity = _randomNumber.Next(10, 31);
             double health, damage, armor;
@@ -95,74 +95,39 @@ namespace War
                 health = _randomNumber.Next(25, 101);
                 damage = _randomNumber.Next(100, 201);
                 armor = _randomNumber.Next(25, 51);
-                _soldiers.Add(new Soldier(health, damage, armor));
+                Soldiers.Add(new Soldier(health, damage, armor));
             }
-            IsDefeated = false;
+           
             Console.WriteLine("Введите название страны");
             Country = Console.ReadLine();
-        }
-      
-        public void CheckLoss() 
-        {
-            CheckState();
-            RemoveDead();
-        }
+        }              
 
         public void TakeDamage(double pickedDamage)
         {
-            int soldiersQuantity = _soldiers.Count;
+            int soldiersQuantity = Soldiers.Count;
             int numberPicked;
             double reducedDamage;
-            Random randomNumber = new Random();
 
-            numberPicked = randomNumber.Next(0, soldiersQuantity);
-            reducedDamage =  _soldiers[numberPicked].TakeDamage(pickedDamage);
+            numberPicked = _randomNumber.Next(0, soldiersQuantity);
+            reducedDamage =  Soldiers[numberPicked].TakeDamage(pickedDamage);
             int index = numberPicked;
             Console.Write("Солдат " + index.ToString() + " из страны " + Country + " получает " + reducedDamage.ToString() + " урона, ");
 
             double blockedDamage = pickedDamage - reducedDamage;
             Console.WriteLine("заблокировано " + blockedDamage.ToString()+ " урона");
         }
-
-        private void CheckState() 
-        {
-            bool isAlive = false;                      
-
-            foreach (Soldier soldier in _soldiers) 
+      
+        public void RemoveDead() 
+        {                    
+            for (int i = 0; i < Soldiers.Count; i++) 
             {
-                soldier.CheckState();
-                if (soldier.IsAlive == true) 
+                Soldiers[i].CheckState();
+                if (Soldiers[i].IsAlive == false)
                 {
-                    isAlive = true;                  
-                }               
-            }
-
-            if (isAlive == false) 
-            {
-                IsDefeated = true;
-            }                         
-        }
-
-        private void RemoveDead() 
-        {          
-            int index = 0, indexForRemove = 0;
-            bool isDeadExist = false;
-
-            foreach (Soldier soldier in _soldiers)
-            {
-                soldier.CheckState();
-                if (soldier.IsAlive == false)
-                {
-                    indexForRemove = index;
-                    isDeadExist = true;
-                }               
-                index++;
-            }
-            
-            if (isDeadExist == true)
-            {
-                _soldiers.RemoveAt(indexForRemove);
-            }                      
+                    Soldiers.RemoveAt(i);
+                    break;
+                }
+            }                                    
         }
 
         public double GetDamage()
@@ -173,7 +138,7 @@ namespace War
             Show();
             Console.WriteLine("---------------------------------------------");
             index = PickSoldierDamage();
-            outputDamage = _soldiers[index].Damage;
+            outputDamage = Soldiers[index].Damage;
             Console.WriteLine("Солдат " + index.ToString() + " наносит " + outputDamage.ToString() + " урона");
 
             return outputDamage;
@@ -184,7 +149,7 @@ namespace War
             int soldierIndex = 0;
 
             Console.WriteLine(Country + ":");
-            foreach (Soldier soldier in _soldiers)
+            foreach (Soldier soldier in Soldiers)
             {
                 Console.Write("[" + soldierIndex.ToString() + "]");
                 Console.Write(" HP:" + soldier.Health.ToString());
@@ -200,7 +165,7 @@ namespace War
             int numberPicked;                      
 
             Random randomNumber = new Random();
-            numberPicked = randomNumber.Next(0, _soldiers.Count);           
+            numberPicked = randomNumber.Next(0, Soldiers.Count);           
             int index = numberPicked;          
 
             return index;
