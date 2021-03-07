@@ -24,19 +24,18 @@ namespace Zoo
 
     class Zoo 
     {
-        private Aviary _aviary1;
-        private Aviary _aviary2;
-        private Aviary _aviary3;
-        private Aviary _aviary4;
-        private Aviary _aviary5;
+        private Dictionary<int, Aviary> _aviaries;
+        private Random _randomNumber;
 
         public Zoo() 
         {
-            _aviary1 = new Aviary("вольер 1", "лев", "роар");
-            _aviary2 = new Aviary("вольер 2", "слон", "труууу");
-            _aviary3 = new Aviary("вольер 3", "жираф", "звуки ниже 20 Гц");
-            _aviary4 = new Aviary("вольер 4", "леопард", "роар");
-            _aviary5 = new Aviary("вольер 5", "шимпанзе", "аур-аур");           
+            _randomNumber = new Random();
+            _aviaries = new Dictionary<int, Aviary>();
+            _aviaries.Add(1, new Aviary("вольер 1", "лев", "роар", _randomNumber));
+            _aviaries.Add(2, new Aviary("вольер 2", "слон", "труууу", _randomNumber));
+            _aviaries.Add(3, new Aviary("вольер 3", "жираф", "звуки ниже 20 Гц", _randomNumber));
+            _aviaries.Add(4, new Aviary("вольер 4", "леопард", "роар", _randomNumber));
+            _aviaries.Add(5, new Aviary("вольер 5", "шимпанзе", "аур-аур", _randomNumber));           
         }
 
         public bool ChooseAviary() 
@@ -53,37 +52,27 @@ namespace Zoo
             bool isExit = false;
 
             string userInput = Console.ReadLine();
+            int value;
+            bool isValue = Int32.TryParse(userInput, out value);
+
             Console.Clear();
-            switch (userInput) 
-            { 
-                case "1":
-                    _aviary1.Show();
-                    break;
-                case "2":
-                    _aviary2.Show();
-                    break;
-                case "3":
-                    _aviary3.Show();
-                    break;
-                case "4":
-                    _aviary4.Show();
-                    break;
-                case "5":
-                    _aviary5.Show();
-                    break;
-                case "exit":
-                    isExit = true;                   
-                    break;
-                default:
-                    Console.WriteLine("Ошибка. Такого Вольера не существует.");
-                    break;
+            if (userInput != "exit") 
+            {
+                if (_aviaries.ContainsKey(value) == true) 
+                {
+                    _aviaries[value].Show();
+                }
+            }
+            else 
+            {
+                isExit = true;
             }
 
-            if (isExit == false) 
+            if (isExit == false)
             {
                 Console.WriteLine("Нажмите любую кнопку, чтобы вернуться...");
                 Console.ReadKey();
-            }           
+            }                  
 
             return isExit;
         }
@@ -97,12 +86,12 @@ namespace Zoo
         private int _maleQuantity;
         private int _femaleQuantity;
 
-        public Aviary(string name, string animal, string sound) 
-        {
+        public Aviary(string name, string animal, string sound, Random randomNumber) 
+        {           
             _name = name;
             _animal = animal;
             _sound = sound;
-            DefineGender();
+            DefineGender(randomNumber);
         }
 
         public void Show() 
@@ -114,9 +103,8 @@ namespace Zoo
             Console.WriteLine("женских особей: " + _femaleQuantity.ToString());
         }
 
-        private void DefineGender() 
-        {
-            Random randomNumber = new Random();
+        private void DefineGender(Random randomNumber) 
+        {          
             _maleQuantity = randomNumber.Next(1, 6);
             _femaleQuantity = randomNumber.Next(1, 6);
         }
