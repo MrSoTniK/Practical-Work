@@ -15,10 +15,10 @@ namespace CarService
 
             while (isExit == false) 
             {
-                Carservice carservice = new Carservice();
-                bool isNewGame = false;
+                Garage garage = new Garage();
+                bool isBankrupt = false;
 
-                while (isNewGame == false)
+                while (isBankrupt == false)
                 {
                     Console.WriteLine("Автосервис");
                     Console.WriteLine("Купить детали перед началом нового обслуживания? 1 - да, люб. др. значение - нет");
@@ -26,11 +26,11 @@ namespace CarService
                     Console.Clear();
                     if (userInput == "1") 
                     {
-                        carservice.BuyMenu();
+                        garage.StartPurchaseProcess();
                     }
                     Console.Clear();
-                    carservice.CreateQueue();
-                    isNewGame = carservice.StartService();
+                    garage.CreateQueue();
+                    isBankrupt = garage.StartService();
                 }
 
                 Console.WriteLine("Начать новую игру? 1 - Да, люб. др. значение - нет");
@@ -44,17 +44,17 @@ namespace CarService
         }
     }
 
-    class Carservice
+    class Garage
     {
         private int _money;
         private Storage _storage;
         private int _priceForWork;
         private Queue<Car> _clients;
-        private Random _randomNumber;
+        private Random _random;
 
-        public Carservice() 
+        public Garage() 
         {
-            _randomNumber = new Random();
+            _random = new Random();
             _storage = new Storage();
             _clients = new Queue<Car>();
             _money = 5000;
@@ -68,12 +68,12 @@ namespace CarService
 
             for (int i = 0; i <= 10; i++)
             {                
-                index = _randomNumber.Next(0, quantity);
+                index = _random.Next(0, quantity);
                 _clients.Enqueue(new Car(index));
             }       
         }
 
-        public void BuyMenu() 
+        public void StartPurchaseProcess() 
         {
             string userDetail, userInput;
             bool isExist, isExit = false;
@@ -212,11 +212,12 @@ namespace CarService
         private bool PayPenalty() 
         {
             bool isbankrupt = false;
+            int penaltyValue = 1000;
 
             Console.WriteLine("Вы не справились! Вам штраф!");
-            if (_money >= 1000)
+            if (_money >= penaltyValue)
             {
-                _money -= 1000;
+                _money -= penaltyValue;
                 Console.WriteLine("Нажмите любую кнопку для продолжения...");
                 Console.ReadKey(); 
             }
@@ -263,21 +264,7 @@ namespace CarService
         public int CountDetails() 
         {
             return _details.Count;
-        }
-
-        private void CreateStorage() 
-        {
-            _details.Add(new StorageDetail("карбюратор", 4500));
-            _details.Add(new StorageDetail("свеча зажигания", 450));
-            _details.Add(new StorageDetail("фильтр воздушный", 650));
-            _details.Add(new StorageDetail("фильтр масляной", 670));
-            _details.Add(new StorageDetail("карданный вал", 800));
-            _details.Add(new StorageDetail("приводной вал", 800));
-            _details.Add(new StorageDetail("датчик давления", 1000));
-            _details.Add(new StorageDetail("термостат", 900));
-            _details.Add(new StorageDetail("амортизатор", 1200));
-            _details.Add(new StorageDetail("стартер", 3500));
-        }
+        }      
 
         public int GetDetailPrice(int index)
         {
@@ -316,6 +303,20 @@ namespace CarService
             }
 
             return isExist;
+        }
+
+        private void CreateStorage()
+        {
+            _details.Add(new StorageDetail("карбюратор", 4500));
+            _details.Add(new StorageDetail("свеча зажигания", 450));
+            _details.Add(new StorageDetail("фильтр воздушный", 650));
+            _details.Add(new StorageDetail("фильтр масляной", 670));
+            _details.Add(new StorageDetail("карданный вал", 800));
+            _details.Add(new StorageDetail("приводной вал", 800));
+            _details.Add(new StorageDetail("датчик давления", 1000));
+            _details.Add(new StorageDetail("термостат", 900));
+            _details.Add(new StorageDetail("амортизатор", 1200));
+            _details.Add(new StorageDetail("стартер", 3500));
         }
     }
 
