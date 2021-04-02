@@ -33,7 +33,7 @@ namespace StewCheck
             Console.WriteLine();
             Console.WriteLine("Просрочка:");
             int currentYear = DateTime.Today.Year;
-            var filteredStews = stews.Where(stew => stew.ManfactureYear + stew.ShelfLife < currentYear);
+            var filteredStews = stews.Where(stew => stew.ManufactureYear + stew.ShelfLife < currentYear);
             foreach (Stew stew in filteredStews)
             {
                 stew.Show();
@@ -45,19 +45,19 @@ namespace StewCheck
     class Stew 
     {
         public string Name { get; private set; }
-        public int ManfactureYear { get; private set; }
+        public int ManufactureYear { get; private set; }
         public int ShelfLife { get; private set; }
 
         public Stew(string name, int manfactureYear, int shelfLife) 
         {
             Name = name;
-            ManfactureYear = manfactureYear;
+            ManufactureYear = manfactureYear;
             ShelfLife = shelfLife;
         }
 
         public void Show()
         {
-            Console.WriteLine("название: " + Name + ", год производства: " + ManfactureYear.ToString() + ", срок годности: " + ShelfLife.ToString());
+            Console.WriteLine("название: " + Name + ", год производства: " + ManufactureYear.ToString() + ", срок годности: " + ShelfLife.ToString());
         }
     }
 }
