@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TopPlayers
 {
     class Program
-    {
+    {       
         static void Main(string[] args)
         {
             List<Player> players = new List<Player>
@@ -25,28 +25,27 @@ namespace TopPlayers
             };
 
             Console.WriteLine("Игроки:");
-            foreach(Player player in players)
-            {
-                player.Show();
-            }
+            Show(players);
             Console.WriteLine();
 
             Console.WriteLine("Топ-3 игроков по уровню:");
             var filteredPlayersLvl = players.OrderByDescending(player => player.Level).Take(3);
-            foreach (Player player in filteredPlayersLvl)
-            {
-                player.Show();
-            }
+            Show(filteredPlayersLvl.ToList());
 
             Console.WriteLine();
             Console.WriteLine("Топ-3 игроков по силе:");
             var filteredPlayersPower = players.OrderByDescending(player => player.Power).Take(3);
-            foreach (Player player in filteredPlayersPower)
+            Show(filteredPlayersPower.ToList());
+
+            Console.ReadKey();
+        }
+
+        static void Show(List<Player> players)
+        {
+            foreach (Player player in players)
             {
                 player.Show();
             }
-
-            Console.ReadKey();
         }
     }
 
