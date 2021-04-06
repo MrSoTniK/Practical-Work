@@ -28,16 +28,26 @@ namespace SquadsUnion
                 new Soldier("Нектаров Виктор Сергеевич", "пистолет", "старший лейтенант", 40),
             };                     
            
-            var filteredSoldiers = firstSquad.Where(soldier => soldier.Name.StartsWith("Б")).Union(secondSquad).OrderBy(soldier => soldier.Name);
-            secondSquad = filteredSoldiers.ToList();
+            var chosenSoldiers = firstSquad.Where(soldier => soldier.Name.StartsWith("Б"));
+            firstSquad = firstSquad.Except(chosenSoldiers).ToList();
+            secondSquad = secondSquad.Union(chosenSoldiers).ToList();
+
+            Console.WriteLine("Первый отряд:");
+            Show(firstSquad);
+            Console.WriteLine();
 
             Console.WriteLine("Второй отряд:");
-            foreach (Soldier soldier in secondSquad)
+            Show(secondSquad);
+
+            Console.ReadKey();
+        }
+
+        static void Show(List<Soldier> soldiers) 
+        {
+            foreach (Soldier soldier in soldiers)
             {
                 soldier.Show();
             }
-
-            Console.ReadKey();
         }
     }
 
